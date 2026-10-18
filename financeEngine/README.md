@@ -36,6 +36,20 @@ Without Docker:
 Run it after US markets close = 9pm UK. Before that, the latest row is a
 live price, not a close.
 
+## API
+
+The same signals are available as a small REST API built with FastAPI.
+
+    docker run -p 8000:8000 finance-engine uvicorn api:app --host 0.0.0.0 --port 8000
+
+- `GET /signals` scans the whole watchlist. Add `?only_signals=true` for buy signals only
+- `GET /signals/{ticker}` scans one stock, and returns 404 for a ticker with no data
+- `GET /health` checks the service is up
+
+Interactive docs at http://127.0.0.1:8000/docs
+
+![API docs](assets/api_docs.png)
+
 ## Limitations
 
 - Entry signals only. Exits were my own call, so the results can't be
